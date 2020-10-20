@@ -2,28 +2,33 @@
 > 轻型组件间路由框架
 
 [![Platform](https://img.shields.io/badge/Platform-Android-00CC00.svg?style=flat)](https://www.android.com)
-[![Jcenter](https://img.shields.io/badge/jcenter-RefreshLayout-red.svg?style=flat)](http://jcenter.bintray.com/com/wangzhen/refresh-layout/)
-[![Download](https://api.bintray.com/packages/lavalike/maven/refresh-layout/images/download.svg) ](https://bintray.com/lavalike/maven/refresh-layout/_latestVersion)
+[![](https://jitpack.io/v/lavalike/router.svg)](https://jitpack.io/#lavalike/router)
 [![API](https://img.shields.io/badge/API-17%2B-00CC00.svg?style=flat)](https://android-arsenal.com/api?level=17)
 [![License](https://img.shields.io/badge/License-Apache%202-337ab7.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-项目根目录配置
+
+### 依赖导入
+
+项目根目录
 
 ``` gradle
 allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
 }
 ```
 
-项目目录配置
+模块目录
 
 ``` gradle
-implementation 'com.github.lavalike:router:0.0.1'
+dependencies {
+	implementation 'com.github.lavalike:router:0.0.1'
+}
 ```
 
-### 支持方法
+### 方法说明
 
 ``` java
 public class Router {
@@ -64,50 +69,48 @@ public interface Interceptor {
 ```
 
 ### 代码示例
-1. 配置Manifest.xml
 
-	``` xml
-	<activity android:name=".SchemeActivity">
-	    <intent-filter>
-	        <action android:name="android.intent.action.VIEW" />
-	        <category android:name="android.intent.category.DEFAULT" />
-	        <category android:name="android.intent.category.BROWSABLE" />
-	        <data android:scheme="@string/default_scheme" />
-	        <data android:host="@string/default_host" />
-	        <data android:path="/scheme" />
-	    </intent-filter>
-	</activity>
-	```
+**配置Manifest.xml**
 
-2. 配置拦截器(可选)
+``` xml
+<activity android:name=".SchemeActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="@string/default_scheme" />
+        <data android:host="@string/default_host" />
+        <data android:path="/scheme" />
+    </intent-filter>
+</activity>
+```
 
-	``` java
-	Router.addInterceptor(new Router.Interceptor() {
-	    @Override
-	    public Uri before(Uri uri) {
-	        return null;
-	    }
+**配置拦截器(可选)**
 
-	    @Override
-	    public Uri buildByPath(Context context, String path) {
-	        return null;
-	    }
-	});
-	```
+``` java
+Router.addInterceptor(new Router.Interceptor() {
+    @Override
+    public Uri before(Uri uri) {
+        return null;
+    }
 
-3. 跳转
+    @Override
+    public Uri buildByPath(Context context, String path) {
+        return null;
+    }
+});
+```
 
-	``` java
-	Bundle extras = new Bundle();
-	Router.with(this).setExtras(extras).toPath("/scheme");
-	```
+**跳转**
 
-	or
+``` java
+Bundle extras = new Bundle();
+Router.with(this).setExtras(extras).toPath("/scheme");
 
-	``` java
-	Bundle extras = new Bundle();
-	Router.with(this).setExtras(extras).to("http://www.wangzhen.com/scheme");
-	```
+or
+
+Router.with(this).setExtras(extras).to("http://www.wangzhen.com/scheme");
+```
 
 
 
